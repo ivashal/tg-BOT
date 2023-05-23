@@ -1,15 +1,15 @@
-import requests                        
-from bs4 import BeautifulSoup           
-from fake_useragent import UserAgent    
+import requests
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 
 
 def get_weather_spb() -> list:
     ua = UserAgent()
     URL: str = 'https://world-weather.ru/pogoda/russia/saint_petersburg/7days/'
-        
+
     response = requests.get(URL, headers={'User-agent': ua.random})
     html: str = response.text
-        
+
     soup = BeautifulSoup(html, 'html.parser')
     date: str = soup.find('div', 'dates short-d').text
     table_weather_today = soup.find('table', 'weather-today short')
@@ -29,5 +29,7 @@ def get_weather_spb() -> list:
 
     return weather_day_list
 
-for item in get_weather_spb():
-    print(item)
+
+if __name__ == "__main__":
+    for item in get_weather_spb():
+        print(item)

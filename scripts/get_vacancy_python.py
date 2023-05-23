@@ -1,6 +1,7 @@
 import requests
 from random import randint, sample
 
+
 def get_random_vacancy():
     URL: str = 'https://api.hh.ru/vacancies?'
 
@@ -8,17 +9,17 @@ def get_random_vacancy():
         'User-Agent': 'api-test-agent'
     }
     params: dict = {
-        'page': '1',        # страница
+        'page': '1',  # страница
         'per_page': '100',  # количество результатов на странице
-        'text': 'python',   # встречается в тексте
-        'area': '2'         # область Санкт-Петербург
+        'text': 'python',  # встречается в тексте
+        'area': '2'  # область Санкт-Петербург
     }
 
-    ids: list = [str]   #список для id вакансий
+    ids: list = [str]  # список для id вакансий
     resp = requests.get(URL, headers=headers, params=params)
     data = resp.json()
     count_page = data['pages']  # количество страниц с результатами
-    count_id = data['found']    # всего вакансий найдено
+    count_id = data['found']  # всего вакансий найдено
 
     for i in range(count_page + 1):
         resp = requests.get(f'https://api.hh.ru/vacancies?page={i}&per_page=100&text=python&area=2')
@@ -38,10 +39,11 @@ def get_random_vacancy():
                         'salary': resp_vacancies["salary"],
                         'url': resp_vacancies["alternate_url"]
                         }
-  
-        list_of_data_vacancy.append(data_vacancy.copy())
 
+        list_of_data_vacancy.append(data_vacancy.copy())
 
     return list_of_data_vacancy
 
-print(get_random_vacancy())
+
+if __name__ == "__main__":
+    print(get_random_vacancy())
