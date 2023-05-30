@@ -51,7 +51,7 @@ async def process_weather_command(message: Message):
     await message.answer(date + night + morning + day + evening)
 
 
-@dp.message()
+@dp.message(Command(commands=['cource']))
 async def send_echo(message: Message):
     await message.reply(text=message.text)
 
